@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1665823642 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/ArraysMain.cpp
+	"stdafx.h"
+	"constants.h"
+	"Service.h"
+	"WorkingWithMenu.h"
+	"TemplatedFunctions.h"
+	"NonTemplatedFunctions.h"
+
+1664705236 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/stdafx.h
+	<iostream>
+	<string>
+	<iomanip>
+	<termios.h>
+	<unistd.h>
+	<conio.h>
+
+1664705236 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/constants.h
+
+1664705236 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.h
+	"stdafx.h"
+	"constants.h"
+
+1664705236 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/WorkingWithMenu.h
+	"stdafx.h"
+	"constants.h"
+
+1666518946 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
+	"stdafx.h"
+	"constants.h"
+	"Service.h"
+	"WorkingWithMenu.h"
+
+1666518335 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.h
+	"TemplatedFunctions.h"
+
+1666518420 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.cpp
+	"NonTemplatedFunctions.h"
+
+1664705236 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.cpp
+	"Service.h"
+
+1664705236 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/WorkingWithMenu.cpp
+	"WorkingWithMenu.h"
+
