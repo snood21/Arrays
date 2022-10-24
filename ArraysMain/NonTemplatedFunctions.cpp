@@ -45,4 +45,3 @@ void FillRand(double**& Array, const int ArrayColumns, const int ArrayStrings, b
     ArrayFilled = true;
     PrintString("Выполнено!", ActiveString);
 }
-

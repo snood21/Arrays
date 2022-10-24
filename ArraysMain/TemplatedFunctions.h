@@ -2,9 +2,10 @@
 #include "stdafx.h"
 #include "constants.h"
 #include "Service.h"
-#include "WorkingWithMenu.h"
+#include "NavigatingByMenu.h"
+#include "NonTemplatedFunctions.h"
 
-template <typename T> void menu(T ArrayType, const int ArraySize);
+template <typename T> void menu(T ArrayType, int ArraySize);
 template <typename T> void menu(T ArrayType, const int ArrayColumns, const int ArrayStrings);
 template <typename T> void FillRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
 template <typename T> void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
@@ -33,8 +34,18 @@ template <typename T> void UniqueRand(T**& Array, const int ArrayColumns, const 
 template <typename T> bool ValueInArray(T*& Array, const T ArrayValue, const int ArrayIndex);
 template <typename T> bool ValueInArray(T**& Array, const T ArrayValue, const int IndexString, const int IndexColumn);
 
+template <typename T> void Split(T*& Array, const int ArraySize, int& ActiveString);
+
+template <typename T> void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
+template <typename T> void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
+template <typename T> void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex, int& ActiveString);
+
+template <typename T> void pop_back(T*& Array, int& ArraySize, int& ActiveString);
+template <typename T> void pop_front(T*& Array, int& ArraySize, int& ActiveString);
+template <typename T> void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString);
+
 template <typename T>
-void menu(T ArrayType, const int ArraySize)
+void menu(T ArrayType, int ArraySize)
 {
     cout << CSI << "1;1H";
     cout << CSI << "2J";
@@ -46,7 +57,7 @@ void menu(T ArrayType, const int ArraySize)
     cout << CSI << "?25l";
     cout << CSI << "?12l";
 
-    const int MenuItems = 15;
+    const int MenuItems = 22;
     string MenuList[MenuItems];
     MenuList[0] = "Заполнить массив случайными числами";
     MenuList[1] = "Вывести массив на экран";
@@ -62,7 +73,14 @@ void menu(T ArrayType, const int ArraySize)
     MenuList[11] = "Отсортировать массив по убыванию";
     MenuList[12] = "Заполнить массив случайными числами с обязательными дублями";
     MenuList[13] = "Найти дублирующиеся элементы массива";
-    MenuList[14] = "Выход";
+    MenuList[14] = "Разделить на массивы четных и нечетных элементов";
+    MenuList[15] = "Добавить значение в конец массива";
+    MenuList[16] = "Добавить значение в начало массива";
+    MenuList[17] = "Добавить значение в массив по указанному индексу";
+    MenuList[18] = "Удалить последний элемент массива";
+    MenuList[19] = "Удалить первый элемент массива";
+    MenuList[20] = "Удалить значение из массива по указанному индексу";
+    MenuList[21] = "Выход";
 
     int ActiveString = MenuItems + 2;
 
@@ -131,9 +149,7 @@ void menu(T ArrayType, const int ArraySize)
             {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
-                cin >> ShiftValue;
-                cin.ignore(INT32_MAX, '\n');
-                ActiveString++;
+                cin >> ShiftValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
                 ShiftValue %= ArraySize;
                 shiftLeft(Array, ArraySize, ShiftValue, ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
@@ -143,9 +159,7 @@ void menu(T ArrayType, const int ArraySize)
             {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
-                cin >> ShiftValue;
-                cin.ignore(INT32_MAX, '\n');
-                ActiveString++;
+                cin >> ShiftValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
                 ShiftValue %= ArraySize;
                 shiftRight(Array, ArraySize, ShiftValue, ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
@@ -171,7 +185,64 @@ void menu(T ArrayType, const int ArraySize)
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
             }
                    break;
-            case 14: quit = true; delete[] Array; break;
+            case 14: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                Split(Array, ArraySize, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 15: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                T AddedValue;
+                PrintString("Введите значение для добавления: ", ActiveString);
+                cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                push_back(Array, ArraySize, AddedValue, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 16: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                T AddedValue;
+                PrintString("Введите значение для добавления: ", ActiveString);
+                cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                push_front(Array, ArraySize, AddedValue, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 17: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                T AddedValue;
+                int InsertIndex;
+                PrintString("Введите значение для вставки: ", ActiveString);
+                cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                PrintString("Введите индекс втавляемого значения: ", ActiveString);
+                cin >> InsertIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                insert(Array, ArraySize, AddedValue, InsertIndex, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 18: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                pop_back(Array, ArraySize, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 19: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                pop_front(Array, ArraySize, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 20: if (ArrayIsFilled(ArrayFilled, ActiveString))
+            {
+                int EraseIndex;
+                PrintString("Введите индекс удаляемого элемента: ", ActiveString);
+                cin >> EraseIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                erase(Array, ArraySize, EraseIndex, ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+            }
+                   break;
+            case 21: quit = true; delete[] Array; break;
             default: break;
             }
         }
@@ -766,4 +837,177 @@ void Search(T**& Array, const int ArrayColumns, const int ArrayStrings, int& Act
     delete[] ArrayOfDoubles;
     cout << endl;
     ActiveString++;
+}
+
+template <typename T>
+void Split(T*& Array, const int ArraySize, int& ActiveString)
+{
+    int evenSize = 0;
+    int oddSize = 0;
+    for (int i = 0; i < ArraySize; i++)
+    {
+        T CurrentValue = Array[i];
+        if ((CurrentValue-(int)CurrentValue)==0)
+        {
+            if ((int)CurrentValue%2==0) evenSize++;
+            else oddSize++;
+        }
+        else oddSize++;
+    }
+
+    T* even = new T[evenSize];
+    T* odd = new T[oddSize];
+
+    int evenIndex = 0;
+    int oddIndex = 0;
+
+    for (int i = 0; i < ArraySize; i++)
+    {
+        T CurrentValue = Array[i];
+        if ((CurrentValue-(int)CurrentValue)==0)
+        {
+            if ((int)CurrentValue%2==0)
+            {
+                even[evenIndex] = CurrentValue;
+                evenIndex++;
+            }
+            else
+            {
+                odd[oddIndex] =CurrentValue;
+                oddIndex++;
+            }
+        }
+        else
+        {
+            odd[oddIndex] =CurrentValue;
+            oddIndex++;
+        }
+    }
+
+    if (evenSize > 0)
+    {
+        PrintString("Массив четных элементов: ", ActiveString);
+        cout << endl;
+        ActiveString++;
+        Print(even, evenSize, ActiveString);
+    }
+    if (oddSize > 0)
+    {
+        PrintString("Массив нечетных элементов: ", ActiveString);
+        cout << endl;
+        ActiveString++;
+        Print(odd, oddSize, ActiveString);
+    }
+
+    if (evenSize > 0) delete[] even;
+    if (oddSize > 0) delete[] odd;
+}
+
+template <typename T>
+void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize+1;
+    T* NewArray = new T[NewArraySize];
+    for (int i = 0; i < ArraySize; i++)
+    {
+        NewArray[i] = Array[i];
+    }
+    NewArray[ArraySize] = AddedValue;
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
+}
+
+template <typename T>
+void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize+1;
+    T* NewArray = new T[NewArraySize];
+    NewArray[0] = AddedValue;
+    for (int i = 0; i < ArraySize; i++)
+    {
+        NewArray[i+1] = Array[i];
+    }
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
+}
+
+template <typename T>
+void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize+1;
+    T* NewArray = new T[NewArraySize];
+
+    for (int i = 0; i < InsertIndex; i++)
+    {
+        NewArray[i] = Array[i];
+    }
+    NewArray[InsertIndex] = AddedValue;
+    for (int i = InsertIndex; i < ArraySize; i++)
+    {
+        NewArray[i+1] = Array[i];
+    }
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
+}
+
+template <typename T>
+void pop_back(T*& Array, int& ArraySize, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize-1;
+    T* NewArray = new T[NewArraySize];
+    for (int i = 0; i < NewArraySize; i++)
+    {
+        NewArray[i] = Array[i];
+    }
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
+}
+
+template <typename T>
+void pop_front(T*& Array, int& ArraySize, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize-1;
+    T* NewArray = new T[NewArraySize];
+    for (int i = 1; i < ArraySize; i++)
+    {
+        NewArray[i-1] = Array[i];
+    }
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
+}
+
+template <typename T>
+void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString)
+{
+    T* OldArray = Array;
+    int NewArraySize = ArraySize-1;
+    T* NewArray = new T[NewArraySize];
+
+    for (int i = 0; i < EraseIndex; i++)
+    {
+        NewArray[i] = Array[i];
+    }
+    for (int i = EraseIndex+1; i < ArraySize; i++)
+    {
+        NewArray[i-1] = Array[i];
+    }
+    Array = NewArray;
+    ArraySize = NewArraySize;
+    delete[] OldArray;
+    PrintString("Выполнено!", ActiveString);
 }

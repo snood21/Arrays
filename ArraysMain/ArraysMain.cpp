@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "constants.h"
 #include "Service.h"
-#include "WorkingWithMenu.h"
+#include "NavigatingByMenu.h"
 #include "TemplatedFunctions.h"
 #include "NonTemplatedFunctions.h"
 

@@ -25,16 +25,17 @@
 	"stdafx.h"
 	"constants.h"
 
-1666518946 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
+1666590331 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
 	"stdafx.h"
 	"constants.h"
 	"Service.h"
-	"WorkingWithMenu.h"
+	"NavigatingByMenu.h"
+	"NonTemplatedFunctions.h"
 
-1666518335 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.h
+1666524994 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.h
 	"TemplatedFunctions.h"
 
-1666518420 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.cpp
+1666524605 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.cpp
 	"NonTemplatedFunctions.h"
 
 1664705236 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.cpp
@@ -42,4 +43,11 @@
 
 1664705236 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/WorkingWithMenu.cpp
 	"WorkingWithMenu.h"
+
+1666590314 source:/media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NavigatingByMenu.cpp
+	"NavigatingByMenu.h"
+
+1664705236 /media/snood/DATA1/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NavigatingByMenu.h
+	"stdafx.h"
+	"constants.h"
 

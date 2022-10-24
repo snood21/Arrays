@@ -23,13 +23,13 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="ArraysMain.cpp" />
+		<Unit filename="NavigatingByMenu.cpp" />
+		<Unit filename="NavigatingByMenu.h" />
 		<Unit filename="NonTemplatedFunctions.cpp" />
 		<Unit filename="NonTemplatedFunctions.h" />
 		<Unit filename="Service.cpp" />
 		<Unit filename="Service.h" />
 		<Unit filename="TemplatedFunctions.h" />
-		<Unit filename="WorkingWithMenu.cpp" />
-		<Unit filename="WorkingWithMenu.h" />
 		<Unit filename="constants.h" />
 		<Unit filename="stdafx.h" />
 		<Extensions />
