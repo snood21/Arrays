@@ -51,3 +51,45 @@
 	"stdafx.h"
 	"constants.h"
 
+1666590324 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/ArraysMain.cpp
+	"stdafx.h"
+	"constants.h"
+	"Service.h"
+	"NavigatingByMenu.h"
+	"TemplatedFunctions.h"
+	"NonTemplatedFunctions.h"
+
+1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/stdafx.h
+	<iostream>
+	<string>
+	<iomanip>
+	<termios.h>
+	<unistd.h>
+	<conio.h>
+
+1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/constants.h
+
+1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.h
+	"stdafx.h"
+	"constants.h"
+
+1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NavigatingByMenu.h
+	"stdafx.h"
+	"constants.h"
+
+1667039957 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
+	"stdafx.h"
+	"constants.h"
+	"Service.h"
+	"NavigatingByMenu.h"
+	"NonTemplatedFunctions.h"
+
+1666524994 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.h
+	"TemplatedFunctions.h"
+
+1666590314 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NavigatingByMenu.cpp
+	"NavigatingByMenu.h"
+
+1666524605 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.cpp
+	"NonTemplatedFunctions.h"
+

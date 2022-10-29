@@ -2,26 +2,17 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="NonTemplatedFunctions.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="885" topLine="15" />
-		</Cursor>
-	</File>
 	<File name="Service.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="144" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="NonTemplatedFunctions.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TemplatedFunctions.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1195" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="TemplatedFunctions.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="37053" topLine="419" />
+			<Cursor1 position="37278" topLine="171" />
 		</Cursor>
 		<Folding>
+			<Collapse line="48" />
 			<Collapse line="254" />
 			<Collapse line="411" />
 			<Collapse line="423" />
@@ -46,17 +37,40 @@
 			<Collapse line="686" />
 			<Collapse line="701" />
 			<Collapse line="719" />
+			<Collapse line="741" />
 			<Collapse line="769" />
 			<Collapse line="799" />
 			<Collapse line="843" />
 			<Collapse line="907" />
 			<Collapse line="924" />
 			<Collapse line="941" />
+			<Collapse line="963" />
+			<Collapse line="979" />
 		</Folding>
 	</File>
-	<File name="ArraysMain.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="NonTemplatedFunctions.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2124" topLine="58" />
+			<Cursor1 position="1195" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="NavigatingByMenu.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="26" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="stdafx.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="361" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ArraysMain.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="90" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="NonTemplatedFunctions.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="885" topLine="15" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

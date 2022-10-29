@@ -744,9 +744,9 @@ void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool
     {
         for (int j = 0; j < ArrayColumns; j++)
         {
-            for (int k = i + 1; k < ArrayStrings; k++)
+            for (int k = i; k < ArrayStrings; k++)
             {
-                for (int l = j + 1; l < ArrayColumns; l++)
+                for (int l = k == i ? j + 1 : 0; l < ArrayColumns; l++)
                 {
                     bool NeedChange;
                     if (SortByAscending) NeedChange = (Array[k][l] < Array[i][j]);
