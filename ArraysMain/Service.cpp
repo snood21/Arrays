@@ -1,6 +1,6 @@
 #include "Service.h"
 
-void PrintString(string Text, int& ActiveString)
+void PrintString(string Text, int ActiveString)
 {
     cout << CSI << ActiveString << ";1H";
     cout << CSI << "2K";
@@ -24,7 +24,7 @@ int GetKey()
 #endif
 }
 
-bool ArrayIsFilled(const bool ArrayFilled, int& ActiveString)
+bool ArrayIsFilled(const bool ArrayFilled, int ActiveString)
 {
     if (ArrayFilled) return true;
     else

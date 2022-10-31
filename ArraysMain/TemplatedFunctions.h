@@ -3,38 +3,37 @@
 #include "constants.h"
 #include "Service.h"
 #include "NavigatingByMenu.h"
-#include "NonTemplatedFunctions.h"
 
 template <typename T> void menu(T ArrayType, int ArraySize);
 template <typename T> void menu(T ArrayType, const int ArrayColumns, const int ArrayStrings);
 template <typename T> void FillRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
 template <typename T> void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
-template <typename T> void Print(T*& Array, const int ArraySize, int& ActiveString);
-template <typename T> void Print(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
-template <typename T> void ReversePrint(T*& Array, const int ArraySize, int& ActiveString);
-template <typename T> void ReversePrint(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
-template <typename T> T Sum(T*& Array, const int ArraySize);
-template <typename T> T Sum(T**& Array, const int ArrayColumns, const int ArrayStrings);
-template <typename T> double Avg(T*& Array, const int ArraySize);
-template <typename T> double Avg(T**& Array, const int ArrayColumns, const int ArrayStrings);
-template <typename T> T minValueIn(T*& Array, const int ArraySize);
-template <typename T> T minValueIn(T**& Array, const int ArrayColumns, const int ArrayStrings);
-template <typename T> T maxValueIn(T*& Array, const int ArraySize);
-template <typename T> T maxValueIn(T**& Array, const int ArrayColumns, const int ArrayStrings);
+template <typename T> void Print(T* Array, const int ArraySize, int& ActiveString);
+template <typename T> void Print(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
+template <typename T> void ReversePrint(T* Array, const int ArraySize, int& ActiveString);
+template <typename T> void ReversePrint(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
+template <typename T> T Sum(T* Array, const int ArraySize);
+template <typename T> T Sum(T** Array, const int ArrayColumns, const int ArrayStrings);
+template <typename T> double Avg(T* Array, const int ArraySize);
+template <typename T> double Avg(T** Array, const int ArrayColumns, const int ArrayStrings);
+template <typename T> T minValueIn(T* Array, const int ArraySize);
+template <typename T> T minValueIn(T** Array, const int ArrayColumns, const int ArrayStrings);
+template <typename T> T maxValueIn(T* Array, const int ArraySize);
+template <typename T> T maxValueIn(T** Array, const int ArrayColumns, const int ArrayStrings);
 template <typename T> void shiftLeft(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString);
 template <typename T> void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString);
 template <typename T> void shiftRight(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString);
 template <typename T> void shiftRight(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString);
 template <typename T> void Sort(T*& Array, const int ArraySize, const bool SortByAscending, int& ActiveString);
 template <typename T> void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool SortByAscending, int& ActiveString);
-template <typename T> void Search(T*& Array, const int ArraySize, int& ActiveString);
-template <typename T> void Search(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
+template <typename T> void Search(T* Array, const int ArraySize, int& ActiveString);
+template <typename T> void Search(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
 template <typename T> void UniqueRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
 template <typename T> void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
-template <typename T> bool ValueInArray(T*& Array, const T ArrayValue, const int ArrayIndex);
-template <typename T> bool ValueInArray(T**& Array, const T ArrayValue, const int IndexString, const int IndexColumn);
+template <typename T> bool ValueInArray(T* Array, const T ArrayValue, const int ArrayIndex);
+template <typename T> bool ValueInArray(T** Array, const T ArrayValue, const int IndexString, const int IndexColumn, const int ArrayColumns);
 
-template <typename T> void Split(T*& Array, const int ArraySize, int& ActiveString);
+template <typename T> void Split(T* Array, const int ArraySize, int& ActiveString);
 
 template <typename T> void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
 template <typename T> void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
@@ -412,8 +411,7 @@ void FillRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveStri
 {
     for (int i = 0; i < ArraySize; i++)
     {
-        T ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
-        Array[i] = ArrayValue;
+        Array[i] = (double) (rand() % (MaxRand - MinRand) + MinRand);
     }
     ArrayFilled = true;
     PrintString("Выполнено!", ActiveString);
@@ -426,8 +424,7 @@ void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& 
     {
         for (int j = 0; j < ArrayColumns; j++)
         {
-            T ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
-            Array[i][j] = ArrayValue;
+            Array[i][j] = (double) (rand() % (MaxRand - MinRand) + MinRand);
         }
     }
     ArrayFilled = true;
@@ -435,7 +432,7 @@ void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& 
 }
 
 template<typename T>
-void Print(T*& Array, const int ArraySize, int& ActiveString)
+void Print(T* Array, const int ArraySize, int& ActiveString)
 {
     PrintString("Текущий массив:", ActiveString);
     setlocale(LC_ALL, "*");
@@ -449,7 +446,7 @@ void Print(T*& Array, const int ArraySize, int& ActiveString)
 }
 
 template <typename T>
-void Print(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
+void Print(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
 {
     PrintString("Текущий массив:", ActiveString);
     cout << endl;
@@ -468,7 +465,7 @@ void Print(T**& Array, const int ArrayColumns, const int ArrayStrings, int& Acti
 }
 
 template <typename T>
-void ReversePrint(T*& Array, const int ArraySize, int& ActiveString)
+void ReversePrint(T* Array, const int ArraySize, int& ActiveString)
 {
     PrintString("Текущий массив в обратном порядке:", ActiveString);
     setlocale(LC_ALL, "*");
@@ -482,7 +479,7 @@ void ReversePrint(T*& Array, const int ArraySize, int& ActiveString)
 }
 
 template <typename T>
-void ReversePrint(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
+void ReversePrint(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
 {
     PrintString("Текущий массив в обратном порядке:", ActiveString);
     cout << endl;
@@ -501,7 +498,7 @@ void ReversePrint(T**& Array, const int ArrayColumns, const int ArrayStrings, in
 }
 
 template <typename T>
-T Sum(T*& Array, const int ArraySize)
+T Sum(T* Array, const int ArraySize)
 {
     T ArraySum = 0;
 
@@ -513,7 +510,7 @@ T Sum(T*& Array, const int ArraySize)
 }
 
 template <typename T>
-T Sum(T**& Array, const int ArrayColumns, const int ArrayStrings)
+T Sum(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
     T ArraySum = 0;
 
@@ -528,7 +525,7 @@ T Sum(T**& Array, const int ArrayColumns, const int ArrayStrings)
 }
 
 template <typename T>
-double Avg(T*& Array, const int ArraySize)
+double Avg(T* Array, const int ArraySize)
 {
     T ArraySum = Sum(Array, ArraySize);
 
@@ -536,7 +533,7 @@ double Avg(T*& Array, const int ArraySize)
 }
 
 template <typename T>
-double Avg(T**& Array, const int ArrayColumns, const int ArrayStrings)
+double Avg(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
     T ArraySum = Sum(Array, ArrayColumns, ArrayStrings);
 
@@ -544,7 +541,7 @@ double Avg(T**& Array, const int ArrayColumns, const int ArrayStrings)
 }
 
 template <typename T>
-T minValueIn(T*& Array, const int ArraySize)
+T minValueIn(T* Array, const int ArraySize)
 {
     T MinValue = Array[0];
 
@@ -556,7 +553,7 @@ T minValueIn(T*& Array, const int ArraySize)
 }
 
 template <typename T>
-T minValueIn(T**& Array, const int ArrayColumns, const int ArrayStrings)
+T minValueIn(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
     T MinValue = Array[0][0];
 
@@ -571,7 +568,7 @@ T minValueIn(T**& Array, const int ArrayColumns, const int ArrayStrings)
 }
 
 template <typename T>
-T maxValueIn(T*& Array, const int ArraySize)
+T maxValueIn(T* Array, const int ArraySize)
 {
     T MaxValue = Array[0];
 
@@ -583,7 +580,7 @@ T maxValueIn(T*& Array, const int ArraySize)
 }
 
 template <typename T>
-T maxValueIn(T**& Array, const int ArrayColumns, const int ArrayStrings)
+T maxValueIn(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
     T MaxValue = Array[0][0];
 
@@ -651,7 +648,7 @@ void UniqueRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveSt
 {
     for (int i = 0; i < ArraySize; i++)
     {
-        T ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
+        T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand);
         while (ValueInArray(Array, ArrayValue, i))
         {
             ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
@@ -670,8 +667,8 @@ void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool
     {
         for (int j = 0; j < ArrayColumns; j++)
         {
-            T ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
-            while (ValueInArray(Array, ArrayValue, i, j))
+            T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand);
+            while (ValueInArray(Array, ArrayValue, i, j, ArrayColumns))
             {
                 ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
             }
@@ -683,7 +680,7 @@ void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool
 }
 
 template <typename T>
-bool ValueInArray(T*& Array, const T ArrayValue, const int ArrayIndex)
+bool ValueInArray(T* Array, const T ArrayValue, const int ArrayIndex)
 {
     bool ValueInArray = false;
     for (int i = 0; i < ArrayIndex; i++)
@@ -698,12 +695,12 @@ bool ValueInArray(T*& Array, const T ArrayValue, const int ArrayIndex)
 }
 
 template <typename T>
-bool ValueInArray(T**& Array, const T ArrayValue, const int IndexString, const int IndexColumn)
+bool ValueInArray(T** Array, const T ArrayValue, const int IndexString, const int IndexColumn, const int ArrayColumns)
 {
     bool ValueInArray = false;
-    for (int i = 0; i < IndexString; i++)
+    for (int i = 0; i <= IndexString; i++)
     {
-        for (int j = 0; j < IndexColumn; j++)
+        for (int j = 0; j < (i == IndexString ? IndexColumn : ArrayColumns); j++)
         {
             if (Array[i][j] == ArrayValue)
             {
@@ -711,6 +708,7 @@ bool ValueInArray(T**& Array, const T ArrayValue, const int IndexString, const i
                 break;
             }
         }
+        if (ValueInArray) break;
     }
     return ValueInArray;
 }
@@ -746,7 +744,7 @@ void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool
         {
             for (int k = i; k < ArrayStrings; k++)
             {
-                for (int l = k == i ? j + 1 : 0; l < ArrayColumns; l++)
+                for (int l = k == i ? (j + 1) : 0; l < ArrayColumns; l++)
                 {
                     bool NeedChange;
                     if (SortByAscending) NeedChange = (Array[k][l] < Array[i][j]);
@@ -766,22 +764,24 @@ void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool
 }
 
 template <typename T>
-void Search(T*& Array, const int ArraySize, int& ActiveString)
+void Search(T* Array, const int ArraySize, int& ActiveString)
 {
     PrintString("Дубли в массиве: ", ActiveString);
-    //T ArrayOfDoubles[ArraySize];
-    T* ArrayOfDoubles = new T[ArraySize];
     int TotalDoubles = 0;
     for (int i = 0; i < ArraySize; i++)
     {
+        bool IsRepeat = false;
+        for (int j = 0; j < i; j++) if (Array[j] == Array[i])
+        {
+            IsRepeat = true;
+            break;
+        }
+        if (IsRepeat) continue;
+
         int CountOfDouble = 1;
         for (int j = i + 1; j < ArraySize; j++)
         {
-            if ((Array[i] == Array[j]) && !(Array[j] == ArrayOfDoubles[j]))
-            {
-                CountOfDouble++;
-                ArrayOfDoubles[j] = Array[j];
-            }
+            if (Array[i] == Array[j]) CountOfDouble++;
         }
         if (CountOfDouble > 1)
         {
@@ -790,36 +790,40 @@ void Search(T*& Array, const int ArraySize, int& ActiveString)
         }
     }
     if (TotalDoubles == 0) cout << "отсутствуют";
-    delete[] ArrayOfDoubles;
     cout << endl;
     ActiveString++;
 }
 
 template <typename T>
-void Search(T**& Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
+void Search(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
 {
     PrintString("Дубли в массиве: ", ActiveString);
-    //T ArrayOfDoubles[ArrayStrings][ArrayColumns];
-    T** ArrayOfDoubles = new T* [ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        ArrayOfDoubles[i] = new T[ArrayColumns];
-    }
     int TotalDoubles = 0;
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 0; j < ArrayColumns; j++)
         {
-            int CountOfDouble = 0;
+            bool IsRepeat = false;
+            for (int k = 0; k <= i; k++)
+            {
+                for (int l = 0; l < (k == i ? j : ArrayColumns); l++)
+                {
+                    if (Array[k][l] == Array[i][j])
+                    {
+                        IsRepeat = true;
+                        break;
+                    }
+                }
+                if (IsRepeat) break;
+            }
+            if (IsRepeat) continue;
+
+            int CountOfDouble = 1;
             for (int k = i; k < ArrayStrings; k++)
             {
-                for (int l = 0; l < ArrayColumns; l++)
+                for (int l = k == i ? (j + 1) : 0; l < ArrayColumns; l++)
                 {
-                    if ((Array[i][j] == Array[k][l]) && !(Array[k][l] == ArrayOfDoubles[k][l]))
-                    {
-                        CountOfDouble++;
-                        ArrayOfDoubles[k][l] = Array[k][l];
-                    }
+                    if (Array[k][l] == Array[i][j]) CountOfDouble++;
                 }
             }
             if (CountOfDouble > 1)
@@ -830,17 +834,12 @@ void Search(T**& Array, const int ArrayColumns, const int ArrayStrings, int& Act
         }
     }
     if (TotalDoubles == 0) cout << "отсутствуют";
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete ArrayOfDoubles[i];
-    }
-    delete[] ArrayOfDoubles;
     cout << endl;
     ActiveString++;
 }
 
 template <typename T>
-void Split(T*& Array, const int ArraySize, int& ActiveString)
+void Split(T* Array, const int ArraySize, int& ActiveString)
 {
     int evenSize = 0;
     int oddSize = 0;
@@ -906,43 +905,37 @@ void Split(T*& Array, const int ArraySize, int& ActiveString)
 template <typename T>
 void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize+1;
-    T* NewArray = new T[NewArraySize];
+    T* NewArray = new T[ArraySize+1];
     for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i] = Array[i];
     }
-    NewArray[ArraySize] = AddedValue;
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
+    Array[ArraySize] = AddedValue;
+    ArraySize++;
     PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
 void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize+1;
-    T* NewArray = new T[NewArraySize];
+    T* NewArray = new T[ArraySize+1];
     NewArray[0] = AddedValue;
     for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i+1] = Array[i];
     }
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
+    ArraySize++;
     PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
 void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize+1;
-    T* NewArray = new T[NewArraySize];
+    T* NewArray = new T[ArraySize+1];
 
     for (int i = 0; i < InsertIndex; i++)
     {
@@ -953,51 +946,44 @@ void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex
     {
         NewArray[i+1] = Array[i];
     }
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
+    ArraySize++;
     PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
 void pop_back(T*& Array, int& ArraySize, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize-1;
-    T* NewArray = new T[NewArraySize];
-    for (int i = 0; i < NewArraySize; i++)
+    ArraySize--;
+    T* NewArray = new T[ArraySize];
+    for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i] = Array[i];
     }
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
     PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
 void pop_front(T*& Array, int& ArraySize, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize-1;
-    T* NewArray = new T[NewArraySize];
+    T* NewArray = new T[ArraySize-1];
     for (int i = 1; i < ArraySize; i++)
     {
         NewArray[i-1] = Array[i];
     }
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
+    ArraySize--;
     PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
 void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString)
 {
-    T* OldArray = Array;
-    int NewArraySize = ArraySize-1;
-    T* NewArray = new T[NewArraySize];
-
+    T* NewArray = new T[ArraySize-1];
     for (int i = 0; i < EraseIndex; i++)
     {
         NewArray[i] = Array[i];
@@ -1006,8 +992,8 @@ void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString)
     {
         NewArray[i-1] = Array[i];
     }
+    delete[] Array;
     Array = NewArray;
-    ArraySize = NewArraySize;
-    delete[] OldArray;
+    ArraySize--;
     PrintString("Выполнено!", ActiveString);
 }
