@@ -68,7 +68,7 @@
 
 1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/constants.h
 
-1664705236 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.h
+1667220954 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.h
 	"stdafx.h"
 	"constants.h"
 
@@ -76,7 +76,7 @@
 	"stdafx.h"
 	"constants.h"
 
-1667220399 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
+1667560418 /home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/TemplatedFunctions.h
 	"stdafx.h"
 	"constants.h"
 	"Service.h"
@@ -91,6 +91,6 @@
 1666524605 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/NonTemplatedFunctions.cpp
 	"NonTemplatedFunctions.h"
 
-1667216808 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.cpp
+1667220954 source:/home/snood/Документы/ШАГ/Функциональное программирование на языке C++/Projects/Arrays/ArraysMain/Service.cpp
 	"Service.h"
 
