@@ -1,10 +1,15 @@
 #include "Service.h"
 
-void PrintString(string Text, int ActiveString)
+void PrintString(string Text, int& ActiveString, bool LineFeed)
 {
     cout << CSI << ActiveString << ";1H";
     cout << CSI << "2K";
     cout << Text;
+    if (LineFeed)
+    {
+        cout << endl;
+        ActiveString++;
+    }
 }
 
 int GetKey()
@@ -22,14 +27,4 @@ int GetKey()
 #else
     return _getch();
 #endif
-}
-
-bool ArrayIsFilled(const bool ArrayFilled, int ActiveString)
-{
-    if (ArrayFilled) return true;
-    else
-    {
-        PrintString("Массив не заполнен! Сначала выполните процедуру его заполнения!", ActiveString);
-        return false;
-    }
 }

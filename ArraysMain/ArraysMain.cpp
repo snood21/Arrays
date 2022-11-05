@@ -69,23 +69,23 @@ void ArrayTypeSelectionMenu()
             switch (SelectionMenuIndex)
             {
             case Char:
-                if (TwoDimensional) menu((char)SelectionMenuIndex, ArrayColumns, ArrayStrings);
-                else menu((char)SelectionMenuIndex, ArrayColumns);
+                if (TwoDimensional) menu<char>(ArrayColumns, ArrayStrings);
+                else menu<char>(ArrayColumns);
                 DisplayMenu(SelectionMenuList, SelectionMenuItems, SelectionMenuIndex);
                 break;
             case Int:
-                if (TwoDimensional) menu(SelectionMenuIndex, ArrayColumns, ArrayStrings);
-                else menu(SelectionMenuIndex, ArrayColumns);
+                if (TwoDimensional) menu<int>(ArrayColumns, ArrayStrings);
+                else menu<int>(ArrayColumns);
                 DisplayMenu(SelectionMenuList, SelectionMenuItems, SelectionMenuIndex);
                 break;
             case Float:
-                if (TwoDimensional) menu((float)SelectionMenuIndex, ArrayColumns, ArrayStrings);
-                else menu((float)SelectionMenuIndex, ArrayColumns);
+                if (TwoDimensional) menu<float>(ArrayColumns, ArrayStrings);
+                else menu<float>(ArrayColumns);
                 DisplayMenu(SelectionMenuList, SelectionMenuItems, SelectionMenuIndex);
                 break;
             case Double:
-                if (TwoDimensional) menu((double)SelectionMenuIndex, ArrayColumns, ArrayStrings);
-                else menu((double)SelectionMenuIndex, ArrayColumns);
+                if (TwoDimensional) menu<double>(ArrayColumns, ArrayStrings);
+                else menu<double>(ArrayColumns);
                 DisplayMenu(SelectionMenuList, SelectionMenuItems, SelectionMenuIndex);
                 break;
             case 4: quit = true; break;

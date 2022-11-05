@@ -4,10 +4,16 @@
 #include "Service.h"
 #include "NavigatingByMenu.h"
 
-template <typename T> void menu(T ArrayType, int ArraySize);
-template <typename T> void menu(T ArrayType, int ArrayColumns, int ArrayStrings);
-template <typename T> void FillRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
-template <typename T> void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
+template <typename T> T* CreateArray(const int ArraySize);
+template <typename T> T** CreateArray(const int ArrayStrings, const int ArrayColumns);
+
+template <typename T> void DeleteArray(T* Array);
+template <typename T> void DeleteArray(T** Array, const int ArrayStrings);
+
+template <typename T> void menu(int ArraySize);
+template <typename T> void menu(int ArrayColumns, int ArrayStrings);
+template <typename T> void FillRand(T*& Array, const int ArraySize, int MinRand = 0, int MaxRand = 1000);
+template <typename T> void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, int MinRand = 0, int MaxRand = 1000);
 template <typename T> void Print(T* Array, const int ArraySize, int& ActiveString);
 template <typename T> void Print(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
 template <typename T> void ReversePrint(T* Array, const int ArraySize, int& ActiveString);
@@ -20,50 +26,85 @@ template <typename T> T minValueIn(T* Array, const int ArraySize);
 template <typename T> T minValueIn(T** Array, const int ArrayColumns, const int ArrayStrings);
 template <typename T> T maxValueIn(T* Array, const int ArraySize);
 template <typename T> T maxValueIn(T** Array, const int ArrayColumns, const int ArrayStrings);
-template <typename T> void shiftLeft(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString);
-template <typename T> void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString);
-template <typename T> void shiftRight(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString);
-template <typename T> void shiftRight(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString);
-template <typename T> void Sort(T*& Array, const int ArraySize, const bool SortByAscending, int& ActiveString);
-template <typename T> void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool SortByAscending, int& ActiveString);
+template <typename T> void shiftLeft(T*& Array, const int ArraySize, int ShiftValue);
+template <typename T> void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue);
+template <typename T> void shiftRight(T*& Array, const int ArraySize, int ShiftValue);
+template <typename T> void shiftRight(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue);
+template <typename T> void Sort(T*& Array, const int ArraySize, const bool SortByAscending);
+template <typename T> void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool SortByAscending);
 template <typename T> void Search(T* Array, const int ArraySize, int& ActiveString);
 template <typename T> void Search(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString);
-template <typename T> void UniqueRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
-template <typename T> void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand = 0, int MaxRand = 255);
+template <typename T> void UniqueRand(T*& Array, const int ArraySize, int MinRand = 0, int MaxRand = 1000);
+template <typename T> void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, int MinRand = 0, int MaxRand = 1000);
 template <typename T> bool ValueInArray(T* Array, const T ArrayValue, const int ArrayIndex);
 template <typename T> bool ValueInArray(T** Array, const T ArrayValue, const int IndexString, const int IndexColumn, const int ArrayColumns);
 
 template <typename T> void Split(T* Array, const int ArraySize, int& ActiveString);
 
-template <typename T> void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
-template <typename T> void push_string_back(T**& Array, int& ArrayStrings, const int ArrayColumns, int& ActiveString);
-template <typename T> void push_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString);
-template <typename T> void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString);
-template <typename T> void push_string_front(T**& Array, int& ArrayStrings, const int ArrayColumns, int& ActiveString);
-template <typename T> void push_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString);
-template <typename T> void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex, int& ActiveString);
-template <typename T> void insert_string(T**& Array, int& ArrayStrings, const int ArrayColumns, const int InsertStringIndex, int& ActiveString);
-template <typename T> void insert_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int InsertColumnIndex, int& ActiveString);
+template <typename T> void push_back(T*& Array, int& ArraySize, const T AddedValue);
+template <typename T> void push_string_back(T**& Array, int& ArrayStrings, const int ArrayColumns);
+template <typename T> void push_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns);
+template <typename T> void push_front(T*& Array, int& ArraySize, const T AddedValue);
+template <typename T> void push_string_front(T**& Array, int& ArrayStrings, const int ArrayColumns);
+template <typename T> void push_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns);
+template <typename T> void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex);
+template <typename T> void insert_string(T**& Array, int& ArrayStrings, const int ArrayColumns, const int InsertStringIndex);
+template <typename T> void insert_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int InsertColumnIndex);
 
-template <typename T> void pop_back(T*& Array, int& ArraySize, int& ActiveString);
-template <typename T> void pop_string_back(T**& Array, int& ArrayStrings, int& ActiveString);
-template <typename T> void pop_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString);
-template <typename T> void pop_front(T*& Array, int& ArraySize, int& ActiveString);
-template <typename T> void pop_string_front(T**& Array, int& ArrayStrings, int& ActiveString);
-template <typename T> void pop_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString);
-template <typename T> void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString);
-template <typename T> void erase_string(T**& Array, int& ArrayStrings, const int EraseStringIndex, int& ActiveString);
-template <typename T> void erase_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int EraseColumnIndex, int& ActiveString);
+template <typename T> void pop_back(T*& Array, int& ArraySize);
+template <typename T> void pop_string_back(T**& Array, int& ArrayStrings);
+template <typename T> void pop_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns);
+template <typename T> void pop_front(T*& Array, int& ArraySize);
+template <typename T> void pop_string_front(T**& Array, int& ArrayStrings);
+template <typename T> void pop_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns);
+template <typename T> void erase(T*& Array, int& ArraySize, const int EraseIndex);
+template <typename T> void erase_string(T**& Array, int& ArrayStrings, const int EraseStringIndex);
+template <typename T> void erase_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int EraseColumnIndex);
+
+template <typename T> void FillColumnRand(T**& Array, const int ArrayStrings, const int FillColumnIndex, int MinRand = 0, int MaxRand = 1000);
 
 template <typename T>
-void menu(T ArrayType, int ArraySize)
+T* CreateArray(const int ArraySize)
+{
+    T* Array = new T[ArraySize]{};
+    return Array;
+
+}
+
+template <typename T>
+T** CreateArray(const int ArrayStrings, const int ArrayColumns)
+{
+    T** Array = new T* [ArrayStrings];
+    for (int i = 0; i < ArrayStrings; i++)
+    {
+        Array[i] = CreateArray<T>(ArrayColumns);
+    }
+    return Array;
+}
+
+template <typename T>
+void DeleteArray(T* Array)
+{
+    delete[] Array;
+}
+
+template <typename T>
+void DeleteArray(T** Array, const int ArrayStrings)
+{
+    for (int i = 0; i < ArrayStrings; i++)
+    {
+        DeleteArray(Array[i]);
+    }
+    delete[] Array;
+}
+
+template <typename T>
+void menu(int ArraySize)
 {
     cout << CSI << "1;1H";
     cout << CSI << "2J";
 
-    T* Array = new T[ArraySize];
-
-    bool ArrayFilled = false;
+    T* Array = CreateArray<T>(ArraySize);
 
     cout << CSI << "?25l";
     cout << CSI << "?12l";
@@ -107,153 +148,102 @@ void menu(T ArrayType, int ArraySize)
         {
             switch (MenuIndex)
             {
-            case 0: FillRand(Array, ArraySize, ArrayFilled, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 1: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Print(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 2: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                ReversePrint(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 3: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                PrintString("Сумма элементов массива: ", ActiveString);
-                cout << Sum(Array, ArraySize) << endl;
-                ActiveString++;
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 4: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                PrintString("Среднее арифметическое элементов массива: ", ActiveString);
-                cout << Avg(Array, ArraySize) << endl;
-                ActiveString++;
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 5: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+            case 0: FillRand(Array, ArraySize); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 1: PrintString("Текущий массив: ", ActiveString); Print(Array, ArraySize, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 2: PrintString("Текущий массив в обратном порядке: ", ActiveString); ReversePrint(Array, ArraySize, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 3:
+                PrintString("Сумма элементов массива: "+to_string(Sum(Array, ArraySize)), ActiveString, true); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 4:
+                PrintString("Среднее арифметическое элементов массива: "+to_string(Avg(Array, ArraySize)), ActiveString, true); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 5:
                 PrintString("Минимальное значение в массиве: ", ActiveString);
                 setlocale(LC_ALL, "*");
                 cout << minValueIn(Array, ArraySize) << endl;
                 setlocale(LC_ALL, "Rus");
                 ActiveString++;
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 6: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                PrintString("Максимальное значение в массиве: ", ActiveString);
+                break;
+            case 6:
+                PrintString("Максимальное значение в массиве: "+to_string(maxValueIn(Array, ArraySize)), ActiveString, true);
                 setlocale(LC_ALL, "*");
                 cout << maxValueIn(Array, ArraySize) << endl;
                 setlocale(LC_ALL, "Rus");
                 ActiveString++;
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 7: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                break;
+            case 7:
+                {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
                 cin >> ShiftValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
                 ShiftValue %= ArraySize;
-                shiftLeft(Array, ArraySize, ShiftValue, ActiveString);
+                shiftLeft(Array, ArraySize, ShiftValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 8: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 8:
+                {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
                 cin >> ShiftValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
                 ShiftValue %= ArraySize;
-                shiftRight(Array, ArraySize, ShiftValue, ActiveString);
+                shiftRight(Array, ArraySize, ShiftValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 9: UniqueRand(Array, ArraySize, ArrayFilled, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 10: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Sort(Array, ArraySize, true, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 11: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Sort(Array, ArraySize, false, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 12: FillRand(Array, ArraySize, ArrayFilled, ActiveString, 0, ArraySize - 1); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 13: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Search(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 14: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Split(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 15: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 9: UniqueRand(Array, ArraySize, ActiveString); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 10: Sort(Array, ArraySize, true); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 11: Sort(Array, ArraySize, false); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 12: FillRand(Array, ArraySize, 0, ArraySize - 1); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 13: Search(Array, ArraySize, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 14: Split(Array, ArraySize, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 15:
+                {
                 T AddedValue;
                 PrintString("Введите значение для добавления: ", ActiveString);
                 cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                push_back(Array, ArraySize, AddedValue, ActiveString);
+                push_back(Array, ArraySize, AddedValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 16: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 16:
+                {
                 T AddedValue;
                 PrintString("Введите значение для добавления: ", ActiveString);
                 cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                push_front(Array, ArraySize, AddedValue, ActiveString);
+                push_front(Array, ArraySize, AddedValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 17: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                T AddedValue;
+                }
+                break;
+            case 17:
+                {T AddedValue;
                 int InsertIndex;
                 PrintString("Введите значение для вставки: ", ActiveString);
                 cin >> AddedValue; cin.ignore(INT32_MAX, '\n'); ActiveString++;
                 PrintString("Введите индекс втавляемого значения: ", ActiveString);
                 cin >> InsertIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                insert(Array, ArraySize, AddedValue, InsertIndex, ActiveString);
+                insert(Array, ArraySize, AddedValue, InsertIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 18: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_back(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 19: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_front(Array, ArraySize, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 20: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 18: pop_back(Array, ArraySize); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 19: pop_front(Array, ArraySize); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 20:
+                {
                 int EraseIndex;
                 PrintString("Введите индекс удаляемого элемента: ", ActiveString);
                 cin >> EraseIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                erase(Array, ArraySize, EraseIndex, ActiveString);
+                erase(Array, ArraySize, EraseIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 21: quit = true; delete[] Array; break;
+                }
+                break;
+            case 21: quit = true; DeleteArray(Array); break;
             default: break;
             }
         }
@@ -262,23 +252,17 @@ void menu(T ArrayType, int ArraySize)
 }
 
 template <typename T>
-void menu(T ArrayType, int ArrayColumns, int ArrayStrings)
+void menu(int ArrayColumns, int ArrayStrings)
 {
     cout << CSI << "1;1H";
     cout << CSI << "2J";
 
-    T** Array = new T* [ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        Array[i] = new T[ArrayColumns];
-    }
-
-    bool ArrayFilled = false;
+    T** Array = CreateArray<T>(ArrayStrings,ArrayColumns);
 
     cout << CSI << "?25l";
     cout << CSI << "?12l";
 
-    const int MenuItems = 27;
+    const int MenuItems = 29;
     string MenuList[MenuItems];
     MenuList[0] = "Заполнить массив случайными числами";
     MenuList[1] = "Вывести массив на экран";
@@ -306,7 +290,9 @@ void menu(T ArrayType, int ArrayColumns, int ArrayStrings)
     MenuList[23] = "Удалить последнюю колонку массива";
     MenuList[24] = "Удалить первую колонку массива";
     MenuList[25] = "Удалить колонку из массива по указанному индексу";
-    MenuList[26] = "Выход";
+    MenuList[26] = "Заполнить строку массива по указанному индексу случайными числами";
+    MenuList[27] = "Заполнить колонку массива по указанному индексу случайными числами";
+    MenuList[28] = "Выход";
 
     int ActiveString = MenuItems + 2;
 
@@ -322,191 +308,135 @@ void menu(T ArrayType, int ArrayColumns, int ArrayStrings)
         {
             switch (MenuIndex)
             {
-            case 0: FillRand(Array, ArrayColumns, ArrayStrings, ArrayFilled, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 1: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Print(Array, ArrayColumns, ArrayStrings, ActiveString);
+            case 0: FillRand(Array, ArrayColumns, ArrayStrings); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 1: PrintString("Текущий массив:", ActiveString, true); Print(Array, ArrayColumns, ArrayStrings, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 2: PrintString("Текущий массив в обратном порядке:", ActiveString, true); ReversePrint(Array, ArrayColumns, ArrayStrings, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 3:
+                PrintString("Сумма элементов массива: "+to_string(Sum(Array, ArrayColumns, ArrayStrings)), ActiveString, true); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 4:
+                PrintString("Среднее арифметическое элементов массива: "+to_string(Avg(Array, ArrayColumns, ArrayStrings)), ActiveString, true);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 2: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                ReversePrint(Array, ArrayColumns, ArrayStrings, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 3: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                PrintString("Сумма элементов массива: ", ActiveString);
-                cout << Sum(Array, ArrayColumns, ArrayStrings) << endl;
-                ActiveString++;
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 4: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                PrintString("Среднее арифметическое элементов массива: ", ActiveString);
-                cout << Avg(Array, ArrayColumns, ArrayStrings) << endl;
-                ActiveString++;
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 5: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                break;
+            case 5:
                 PrintString("Минимальное значение в массиве: ", ActiveString);
                 setlocale(LC_ALL, "*");
                 cout << minValueIn(Array, ArrayColumns, ArrayStrings) << endl;
                 setlocale(LC_ALL, "Rus");
                 ActiveString++;
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 6: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                break;
+            case 6:
                 PrintString("Максимальное значение в массиве: ", ActiveString);
                 setlocale(LC_ALL, "*");
                 cout << maxValueIn(Array, ArrayColumns, ArrayStrings) << endl;
                 setlocale(LC_ALL, "Rus");
                 ActiveString++;
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 7: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                break;
+            case 7:
+                {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
                 cin >> ShiftValue;
                 cin.ignore(INT32_MAX, '\n');
                 ActiveString++;
                 ShiftValue %= ArrayColumns;
-                shiftLeft(Array, ArrayColumns, ArrayStrings, ShiftValue, ActiveString);
+                shiftLeft(Array, ArrayColumns, ArrayStrings, ShiftValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 8: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 8:
+                {
                 PrintString("Введите значение сдвига: ", ActiveString);
                 int ShiftValue;
                 cin >> ShiftValue;
                 cin.ignore(INT32_MAX, '\n');
                 ActiveString++;
                 ShiftValue %= ArrayColumns;
-                shiftRight(Array, ArrayColumns, ArrayStrings, ShiftValue, ActiveString);
+                shiftRight(Array, ArrayColumns, ArrayStrings, ShiftValue);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                  break;
-            case 9: UniqueRand(Array, ArrayColumns, ArrayStrings, ArrayFilled, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 10: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Sort(Array, ArrayColumns, ArrayStrings, true, ActiveString);
+                }
+                break;
+            case 9: UniqueRand(Array, ArrayColumns, ArrayStrings, ActiveString); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 10: Sort(Array, ArrayColumns, ArrayStrings, true); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 11: Sort(Array, ArrayColumns, ArrayStrings, false); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 12:
+                FillRand(Array, ArrayColumns, ArrayStrings, 0, ArrayColumns + ArrayStrings - 1);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 11: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Sort(Array, ArrayColumns, ArrayStrings, false, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 12: FillRand(Array, ArrayColumns, ArrayStrings, ArrayFilled, ActiveString, 0, ArrayColumns + ArrayStrings - 1); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
-            case 13: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                Search(Array, ArrayColumns, ArrayStrings, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 14: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                push_string_back(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 15: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                push_string_front(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 16: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                break;
+            case 13: Search(Array, ArrayColumns, ArrayStrings, ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 14: push_string_back(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 15: push_string_front(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 16:
+                {
                 int InsertStringIndex;
                 PrintString("Введите индекс вставляемой строки: ", ActiveString);
                 cin >> InsertStringIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                insert_string(Array, ArrayStrings, ArrayColumns, InsertStringIndex, ActiveString);
+                insert_string(Array, ArrayStrings, ArrayColumns, InsertStringIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 17: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_string_back(Array, ArrayStrings, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 18: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_string_front(Array, ArrayStrings, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 19: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 17: pop_string_back(Array, ArrayStrings); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 18: pop_string_front(Array, ArrayStrings); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 19:
+                {
                 int EraseStringIndex;
                 PrintString("Введите индекс удаляемой строки: ", ActiveString);
                 cin >> EraseStringIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                erase_string(Array, ArrayStrings, EraseStringIndex, ActiveString);
+                erase_string(Array, ArrayStrings, EraseStringIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
+                }
                 break;
-            case 20: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                push_column_back(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 21: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                push_column_front(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 22: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+            case 20: push_column_back(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 21: push_column_front(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 22:
+                {
                 int InsertColumnIndex;
                 PrintString("Введите индекс вставляемой колонки: ", ActiveString);
                 cin >> InsertColumnIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                insert_column(Array, ArrayStrings, ArrayColumns, InsertColumnIndex, ActiveString);
+                insert_column(Array, ArrayStrings, ArrayColumns, InsertColumnIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 23: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_column_back(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 24: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
-                pop_column_front(Array, ArrayStrings, ArrayColumns, ActiveString);
-                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
-                   break;
-            case 25: if (ArrayIsFilled(ArrayFilled, ActiveString))
-            {
+                }
+                break;
+            case 23: pop_column_back(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 24: pop_column_front(Array, ArrayStrings, ArrayColumns); PrintString("Выполнено!", ActiveString); NavigatingByMenu(MenuList, MenuItems, MenuIndex, key); break;
+            case 25:
+                {
                 int EraseColumnIndex;
                 PrintString("Введите индекс удаляемой колонки: ", ActiveString);
                 cin >> EraseColumnIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
-                erase_column(Array, ArrayStrings, ArrayColumns, EraseColumnIndex, ActiveString);
+                erase_column(Array, ArrayStrings, ArrayColumns, EraseColumnIndex);
+                PrintString("Выполнено!", ActiveString);
                 NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
-            }
+                }
                 break;
             case 26:
-                quit = true;
-                for (int i = 0; i < ArrayStrings; i++)
                 {
-                    delete Array[i];
+                int FillStringIndex;
+                PrintString("Введите индекс строки для заполнения: ", ActiveString);
+                cin >> FillStringIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                FillRand(Array[FillStringIndex],ArrayColumns);
+                PrintString("Выполнено!", ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
                 }
-                delete[] Array;
                 break;
+            case 27:
+                {
+                int FillColumnIndex;
+                PrintString("Введите индекс колонки для заполнения: ", ActiveString);
+                cin >> FillColumnIndex; cin.ignore(INT32_MAX, '\n'); ActiveString++;
+                FillColumnRand(Array,ArrayStrings,FillColumnIndex);
+                PrintString("Выполнено!", ActiveString);
+                NavigatingByMenu(MenuList, MenuItems, MenuIndex, key);
+                }
+                break;
+            case 28: quit = true; DeleteArray(Array, ArrayStrings); break;
             default: break;
             }
         }
@@ -515,34 +445,26 @@ void menu(T ArrayType, int ArrayColumns, int ArrayStrings)
 }
 
 template<typename T>
-void FillRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand, int MaxRand)
+void FillRand(T*& Array, const int ArraySize, int MinRand, int MaxRand)
 {
     for (int i = 0; i < ArraySize; i++)
     {
-        Array[i] = (double) (rand() % (MaxRand - MinRand) + MinRand);
+        Array[i] = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
     }
-    ArrayFilled = true;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template<typename T>
-void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand, int MaxRand)
+void FillRand(T**& Array, const int ArrayColumns, const int ArrayStrings, int MinRand, int MaxRand)
 {
     for (int i = 0; i < ArrayStrings; i++)
     {
-        for (int j = 0; j < ArrayColumns; j++)
-        {
-            Array[i][j] = (double) (rand() % (MaxRand - MinRand) + MinRand);
-        }
+        FillRand(Array[i],ArrayColumns,MinRand,MaxRand);
     }
-    ArrayFilled = true;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template<typename T>
 void Print(T* Array, const int ArraySize, int& ActiveString)
 {
-    PrintString("Текущий массив:", ActiveString);
     setlocale(LC_ALL, "*");
     for (int i = 0; i < ArraySize; i++)
     {
@@ -556,26 +478,15 @@ void Print(T* Array, const int ArraySize, int& ActiveString)
 template <typename T>
 void Print(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
 {
-    PrintString("Текущий массив:", ActiveString);
-    cout << endl;
-    ActiveString++;
-    setlocale(LC_ALL, "*");
     for (int i = 0; i < ArrayStrings; i++)
     {
-        for (int j = 0; j < ArrayColumns; j++)
-        {
-            cout << Array[i][j] << "\t";
-        }
-        cout << endl;
-        ActiveString++;
+        Print(Array[i],ArrayColumns,ActiveString);
     }
-    setlocale(LC_ALL, "Rus");
 }
 
 template <typename T>
 void ReversePrint(T* Array, const int ArraySize, int& ActiveString)
 {
-    PrintString("Текущий массив в обратном порядке:", ActiveString);
     setlocale(LC_ALL, "*");
     for (int i = ArraySize - 1; i >= 0; i--)
     {
@@ -589,20 +500,10 @@ void ReversePrint(T* Array, const int ArraySize, int& ActiveString)
 template <typename T>
 void ReversePrint(T** Array, const int ArrayColumns, const int ArrayStrings, int& ActiveString)
 {
-    PrintString("Текущий массив в обратном порядке:", ActiveString);
-    cout << endl;
-    ActiveString++;
-    setlocale(LC_ALL, "*");
     for (int i = ArrayStrings - 1; i >= 0; i--)
     {
-        for (int j = ArrayColumns - 1; j >= 0; j--)
-        {
-            cout << " " << Array[i][j];
-        }
-        cout << endl;
-        ActiveString++;
+        ReversePrint(Array[i],ArrayColumns,ActiveString);
     }
-    setlocale(LC_ALL, "Rus");
 }
 
 template <typename T>
@@ -624,10 +525,7 @@ T Sum(T** Array, const int ArrayColumns, const int ArrayStrings)
 
     for (int i = 0; i < ArrayStrings; i++)
     {
-        for (int j = 0; j < ArrayColumns; j++)
-        {
-            ArraySum += Array[i][j];
-        }
+        ArraySum += Sum(Array[i],ArrayColumns);
     }
     return ArraySum;
 }
@@ -663,14 +561,12 @@ T minValueIn(T* Array, const int ArraySize)
 template <typename T>
 T minValueIn(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
-    T MinValue = Array[0][0];
+    T MinValue = minValueIn(Array[0],ArrayColumns);
 
-    for (int i = 0; i < ArrayStrings; i++)
+    for (int i = 1; i < ArrayStrings; i++)
     {
-        for (int j = 0; j < ArrayColumns; j++)
-        {
-            if (Array[i][j] < MinValue) MinValue = Array[i][j];
-        }
+        T MinValueInString = minValueIn(Array[i],ArrayColumns);
+        if (MinValueInString < MinValue) MinValue = MinValueInString;
     }
     return MinValue;
 }
@@ -690,20 +586,18 @@ T maxValueIn(T* Array, const int ArraySize)
 template <typename T>
 T maxValueIn(T** Array, const int ArrayColumns, const int ArrayStrings)
 {
-    T MaxValue = Array[0][0];
+    T MaxValue = maxValueIn(Array[0],ArrayColumns);
 
     for (int i = 0; i < ArrayStrings; i++)
     {
-        for (int j = 0; j < ArrayColumns; j++)
-        {
-            if (Array[i][j] > MaxValue) MaxValue = Array[i][j];
-        }
+        T MaxValueInString = minValueIn(Array[i],ArrayColumns);
+        if (MaxValueInString > MaxValue) MaxValue = MaxValueInString;
     }
     return MaxValue;
 }
 
 template <typename T>
-void shiftLeft(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString)
+void shiftLeft(T*& Array, const int ArraySize, int ShiftValue)
 {
     for (int i = 0; i < ShiftValue; i++)
     {
@@ -714,11 +608,10 @@ void shiftLeft(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString
         }
         Array[ArraySize - 1] = CurrentValue;
     }
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString)
+void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue)
 {
     for (int i = 0; i < ShiftValue; i++)
     {
@@ -736,55 +629,50 @@ void shiftLeft(T**& Array, const int ArrayColumns, const int ArrayStrings, int S
             }
         }
     }
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void shiftRight(T*& Array, const int ArraySize, int ShiftValue, int& ActiveString)
+void shiftRight(T*& Array, const int ArraySize, int ShiftValue)
 {
-    shiftLeft(Array, ArraySize, ArraySize - ShiftValue, ActiveString);
+    shiftLeft(Array, ArraySize, ArraySize - ShiftValue);
 }
 
 template <typename T>
-void shiftRight(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue, int& ActiveString)
+void shiftRight(T**& Array, const int ArrayColumns, const int ArrayStrings, int ShiftValue)
 {
-    shiftLeft(Array, ArrayColumns, ArrayStrings, ArrayColumns + ArrayStrings - ShiftValue, ActiveString);
+    shiftLeft(Array, ArrayColumns, ArrayStrings, ArrayColumns + ArrayStrings - ShiftValue);
 }
 
 template <typename T>
-void UniqueRand(T*& Array, const int ArraySize, bool& ArrayFilled, int& ActiveString, int MinRand, int MaxRand)
+void UniqueRand(T*& Array, const int ArraySize, int MinRand, int MaxRand)
 {
     for (int i = 0; i < ArraySize; i++)
     {
-        T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand);
+        T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
         while (ValueInArray(Array, ArrayValue, i))
         {
-            ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
+            ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
         }
 
         Array[i] = ArrayValue;
     }
-    ArrayFilled = true;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, bool& ArrayFilled, int& ActiveString, int MinRand, int MaxRand)
+void UniqueRand(T**& Array, const int ArrayColumns, const int ArrayStrings, int MinRand, int MaxRand)
 {
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 0; j < ArrayColumns; j++)
         {
-            T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand);
+            T ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
             while (ValueInArray(Array, ArrayValue, i, j, ArrayColumns))
             {
-                ArrayValue = rand() % (MaxRand - MinRand) + MinRand;
+                ArrayValue = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
             }
             Array[i][j] = ArrayValue;
         }
     }
-    ArrayFilled = true;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
@@ -822,7 +710,7 @@ bool ValueInArray(T** Array, const T ArrayValue, const int IndexString, const in
 }
 
 template <typename T>
-void Sort(T*& Array, const int ArraySize, const bool SortByAscending, int& ActiveString)
+void Sort(T*& Array, const int ArraySize, const bool SortByAscending)
 {
     for (int i = 0; i < ArraySize; i++)
     {
@@ -840,11 +728,10 @@ void Sort(T*& Array, const int ArraySize, const bool SortByAscending, int& Activ
             }
         }
     }
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool SortByAscending, int& ActiveString)
+void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool SortByAscending)
 {
     for (int i = 0; i < ArrayStrings; i++)
     {
@@ -868,7 +755,6 @@ void Sort(T**& Array, const int ArrayColumns, const int ArrayStrings, const bool
             }
         }
     }
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
@@ -962,8 +848,8 @@ void Split(T* Array, const int ArraySize, int& ActiveString)
         else oddSize++;
     }
 
-    T* even = new T[evenSize];
-    T* odd = new T[oddSize];
+    T* even = CreateArray<T>(evenSize);
+    T* odd = CreateArray<T>(oddSize);
 
     int evenIndex = 0;
     int oddIndex = 0;
@@ -994,39 +880,34 @@ void Split(T* Array, const int ArraySize, int& ActiveString)
     if (evenSize > 0)
     {
         PrintString("Массив четных элементов: ", ActiveString);
-        cout << endl;
-        ActiveString++;
         Print(even, evenSize, ActiveString);
     }
     if (oddSize > 0)
     {
         PrintString("Массив нечетных элементов: ", ActiveString);
-        cout << endl;
-        ActiveString++;
         Print(odd, oddSize, ActiveString);
     }
 
-    if (evenSize > 0) delete[] even;
-    if (oddSize > 0) delete[] odd;
+    if (evenSize > 0) DeleteArray(even);
+    if (oddSize > 0) DeleteArray(odd);
 }
 
 template <typename T>
-void push_back(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
+void push_back(T*& Array, int& ArraySize, const T AddedValue)
 {
-    T* NewArray = new T[ArraySize+1];
+    T* NewArray = CreateArray<T>(ArraySize+1);
     for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i] = Array[i];
     }
-    delete[] Array;
+    DeleteArray(Array);
     Array = NewArray;
     Array[ArraySize] = AddedValue;
     ArraySize++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void push_string_back(T**& Array, int& ArrayStrings, const int ArrayColumns, int& ActiveString)
+void push_string_back(T**& Array, int& ArrayStrings, const int ArrayColumns)
 {
     T** NewArray = new T*[ArrayStrings+1];
     for (int i = 0; i < ArrayStrings; i++)
@@ -1035,20 +916,14 @@ void push_string_back(T**& Array, int& ArrayStrings, const int ArrayColumns, int
     }
     delete[] Array;
     Array = NewArray;
-    Array[ArrayStrings] = new T[ArrayColumns]{};
+    Array[ArrayStrings] = CreateArray<T>(ArrayColumns);
     ArrayStrings++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void push_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString)
+void push_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns)
 {
-    T** NewArray = new T*[ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        NewArray[i] = new T[ArrayColumns+1];
-    }
-
+    T** NewArray = CreateArray<T>(ArrayStrings,ArrayColumns+1);
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 0; j < ArrayColumns; j++)
@@ -1056,36 +931,30 @@ void push_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int
             NewArray[i][j] = Array[i][j];
         }
     }
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete[] Array[i];
-    }
-    delete[] Array;
+    DeleteArray(Array,ArrayStrings);
     Array = NewArray;
     ArrayColumns++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void push_front(T*& Array, int& ArraySize, const T AddedValue, int& ActiveString)
+void push_front(T*& Array, int& ArraySize, const T AddedValue)
 {
-    T* NewArray = new T[ArraySize+1];
+    T* NewArray = CreateArray<T>(ArraySize+1);
     NewArray[0] = AddedValue;
     for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i+1] = Array[i];
     }
-    delete[] Array;
+    DeleteArray(Array);
     Array = NewArray;
     ArraySize++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void push_string_front(T**& Array, int& ArrayStrings, const int ArrayColumns, int& ActiveString)
+void push_string_front(T**& Array, int& ArrayStrings, const int ArrayColumns)
 {
     T** NewArray = new T*[ArrayStrings+1];
-    NewArray[0] = new T[ArrayColumns]{};
+    NewArray[0] = CreateArray<T>(ArrayColumns);
     for (int i = 0; i < ArrayStrings; i++)
     {
         NewArray[i+1] = Array[i];
@@ -1093,17 +962,12 @@ void push_string_front(T**& Array, int& ArrayStrings, const int ArrayColumns, in
     delete[] Array;
     Array = NewArray;
     ArrayStrings++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void push_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString)
+void push_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns)
 {
-    T** NewArray = new T*[ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        NewArray[i] = new T[ArrayColumns+1];
-    }
+    T** NewArray = CreateArray<T>(ArrayStrings, ArrayColumns+1);
 
     for (int i = 0; i < ArrayStrings; i++)
     {
@@ -1112,20 +976,15 @@ void push_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, in
             NewArray[i][j+1] = Array[i][j];
         }
     }
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete[] Array[i];
-    }
-    delete[] Array;
+    DeleteArray(Array,ArrayStrings);
     Array = NewArray;
     ArrayColumns++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex, int& ActiveString)
+void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex)
 {
-    T* NewArray = new T[ArraySize+1];
+    T* NewArray = CreateArray<T>(ArraySize+1);
 
     for (int i = 0; i < InsertIndex; i++)
     {
@@ -1136,21 +995,20 @@ void insert(T*& Array, int& ArraySize, const T AddedValue, const int InsertIndex
     {
         NewArray[i+1] = Array[i];
     }
-    delete[] Array;
+    DeleteArray(Array);
     Array = NewArray;
     ArraySize++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void insert_string(T**& Array, int& ArrayStrings, const int ArrayColumns, const int InsertStringIndex, int& ActiveString)
+void insert_string(T**& Array, int& ArrayStrings, const int ArrayColumns, const int InsertStringIndex)
 {
     T** NewArray = new T*[ArrayStrings+1];
     for (int i = 0; i < InsertStringIndex; i++)
     {
         NewArray[i] = Array[i];
     }
-    NewArray[InsertStringIndex] = new T[ArrayColumns]{};
+    NewArray[InsertStringIndex] = CreateArray<T>(ArrayColumns);
     for (int i = InsertStringIndex; i < ArrayStrings; i++)
     {
         NewArray[i+1] = Array[i];
@@ -1158,18 +1016,12 @@ void insert_string(T**& Array, int& ArrayStrings, const int ArrayColumns, const 
     delete[] Array;
     Array = NewArray;
     ArrayStrings++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void insert_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int InsertColumnIndex, int& ActiveString)
+void insert_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int InsertColumnIndex)
 {
-    T** NewArray = new T*[ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        NewArray[i] = new T[ArrayColumns+1];
-    }
-
+    T** NewArray = CreateArray<T>(ArrayStrings, ArrayColumns+1);
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 0; j < InsertColumnIndex; j++)
@@ -1181,47 +1033,43 @@ void insert_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const 
             NewArray[i][j+1] = Array[i][j];
         }
     }
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete[] Array[i];
-    }
-    delete[] Array;
+    DeleteArray(Array,ArrayStrings);
     Array = NewArray;
     ArrayColumns++;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void pop_back(T*& Array, int& ArraySize, int& ActiveString)
+void pop_back(T*& Array, int& ArraySize)
 {
     ArraySize--;
-    T* NewArray = new T[ArraySize];
+    T* NewArray = CreateArray<T>(ArraySize);
     for (int i = 0; i < ArraySize; i++)
     {
         NewArray[i] = Array[i];
     }
-    delete[] Array;
+    DeleteArray(Array);
     Array = NewArray;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void pop_string_back(T**& Array, int& ArrayStrings, int& ActiveString)
+void pop_string_back(T**& Array, int& ArrayStrings)
 {
-    delete[] Array[ArrayStrings-1];
     ArrayStrings--;
-    PrintString("Выполнено!", ActiveString);
-}
-
-template <typename T>
-void pop_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString)
-{
     T** NewArray = new T*[ArrayStrings];
-    ArrayColumns--;
     for (int i = 0; i < ArrayStrings; i++)
     {
-        NewArray[i] = new T[ArrayColumns];
+        NewArray[i] = Array[i];
     }
+    DeleteArray(Array[ArrayStrings]);
+    delete[] Array;
+    Array = NewArray;
+}
+
+template <typename T>
+void pop_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns)
+{
+    ArrayColumns--;
+    T** NewArray = CreateArray<T>(ArrayStrings,ArrayColumns);
 
     for (int i = 0; i < ArrayStrings; i++)
     {
@@ -1230,19 +1078,14 @@ void pop_column_back(T**& Array, const int ArrayStrings, int& ArrayColumns, int&
             NewArray[i][j] = Array[i][j];
         }
     }
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete[] Array[i];
-    }
-    delete[] Array;
+    DeleteArray(Array,ArrayStrings);
     Array = NewArray;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void pop_front(T*& Array, int& ArraySize, int& ActiveString)
+void pop_front(T*& Array, int& ArraySize)
 {
-    T* NewArray = new T[ArraySize-1];
+    T* NewArray = CreateArray<T>(ArraySize-1);
     for (int i = 1; i < ArraySize; i++)
     {
         NewArray[i-1] = Array[i];
@@ -1250,33 +1093,26 @@ void pop_front(T*& Array, int& ArraySize, int& ActiveString)
     delete[] Array;
     Array = NewArray;
     ArraySize--;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void pop_string_front(T**& Array, int& ArrayStrings, int& ActiveString)
+void pop_string_front(T**& Array, int& ArrayStrings)
 {
     T** NewArray = new T*[ArrayStrings-1];
-    delete[] Array[0];
     for (int i = 1; i < ArrayStrings; i++)
     {
         NewArray[i-1] = Array[i];
     }
+    DeleteArray(Array[0]);
     delete[] Array;
     Array = NewArray;
     ArrayStrings--;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void pop_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, int& ActiveString)
+void pop_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns)
 {
-    T** NewArray = new T*[ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        NewArray[i] = new T[ArrayColumns-1];
-    }
-
+    T** NewArray = CreateArray<T>(ArrayStrings,ArrayColumns-1);
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 1; j < ArrayColumns; j++)
@@ -1284,20 +1120,15 @@ void pop_column_front(T**& Array, const int ArrayStrings, int& ArrayColumns, int
             NewArray[i][j-1] = Array[i][j];
         }
     }
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        delete[] Array[i];
-    }
-    delete[] Array;
+    DeleteArray(Array,ArrayStrings);
     Array = NewArray;
     ArrayColumns--;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString)
+void erase(T*& Array, int& ArraySize, const int EraseIndex)
 {
-    T* NewArray = new T[ArraySize-1];
+    T* NewArray = CreateArray<T>(ArraySize-1);
     for (int i = 0; i < EraseIndex; i++)
     {
         NewArray[i] = Array[i];
@@ -1306,14 +1137,13 @@ void erase(T*& Array, int& ArraySize, const int EraseIndex, int& ActiveString)
     {
         NewArray[i-1] = Array[i];
     }
-    delete[] Array;
+    DeleteArray(Array);
     Array = NewArray;
     ArraySize--;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void erase_string(T**& Array, int& ArrayStrings, const int EraseStringIndex, int& ActiveString)
+void erase_string(T**& Array, int& ArrayStrings, const int EraseStringIndex)
 {
     T** NewArray = new T*[ArrayStrings-1];
     for (int i = 0; i < EraseStringIndex; i++)
@@ -1324,22 +1154,17 @@ void erase_string(T**& Array, int& ArrayStrings, const int EraseStringIndex, int
     {
         NewArray[i-1] = Array[i];
     }
-    delete[] Array[EraseStringIndex];
+    DeleteArray(Array[EraseStringIndex]);
     delete[] Array;
     Array = NewArray;
     ArrayStrings--;
-    PrintString("Выполнено!", ActiveString);
 }
 
 template <typename T>
-void erase_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int EraseColumnIndex, int& ActiveString)
+void erase_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const int EraseColumnIndex)
 {
-    T** NewArray = new T*[ArrayStrings];
-    for (int i = 0; i < ArrayStrings; i++)
-    {
-        NewArray[i] = new T[ArrayColumns-1];
-    }
     ArrayColumns--;
+    T** NewArray = CreateArray<T>(ArrayStrings,ArrayColumns);
     for (int i = 0; i < ArrayStrings; i++)
     {
         for (int j = 0; j < EraseColumnIndex; j++)
@@ -1351,11 +1176,15 @@ void erase_column(T**& Array, const int ArrayStrings, int& ArrayColumns, const i
             NewArray[i][j] = Array[i][j+1];
         }
     }
+    DeleteArray(Array,ArrayStrings);
+    Array = NewArray;
+}
+
+template <typename T>
+void FillColumnRand(T**& Array, const int ArrayStrings, const int FillColumnIndex, int MinRand, int MaxRand)
+{
     for (int i = 0; i < ArrayStrings; i++)
     {
-        delete[] Array[i];
+        Array[i][FillColumnIndex] = (double) (rand() % (MaxRand - MinRand) + MinRand)/10;
     }
-    delete[] Array;
-    Array = NewArray;
-    PrintString("Выполнено!", ActiveString);
 }

@@ -3,6 +3,5 @@
 #include "stdafx.h"
 #include "constants.h"
 
-void PrintString(string Text, int ActiveString);
+void PrintString(string Text, int& ActiveString, bool LineFeed = false);
 int GetKey();
-bool ArrayIsFilled(const bool ArrayFilled, int ActiveString);
